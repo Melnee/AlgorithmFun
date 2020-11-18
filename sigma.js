@@ -6,4 +6,4 @@ function sigma(num){
     return sum;
 }
 
-console.log(sigma(7));
+console.log(sigma(7)); 
