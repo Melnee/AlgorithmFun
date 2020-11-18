@@ -1,2 +1,2 @@
 # AlgorithmFun
-Algorithms in Python for Fun
+Algorithms in Javascript for Fun
