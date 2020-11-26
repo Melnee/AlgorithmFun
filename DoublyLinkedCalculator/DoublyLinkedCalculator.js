@@ -42,7 +42,7 @@ class DoublyLinkedList{
 
 var newList = new DoublyLinkedList();
 
-var testInput = "1/5/4+6*7";
+var testInput = "-1/5/4-6*7";
 var symbols = ["+", "-", "/", "*"];
 
 for(var i = 0; i < testInput.length; i++){
@@ -163,7 +163,7 @@ while(runner != null){
     if(symbols.includes(runner.value)){
         //do nothing
         runner = runner.next;
-    }else if(runner.previous != null){
+    }else if(runner.previous != null){ //if it's not at the head
         if(runner.previous.value =="-"){
             sum -= parseFloat(runner.value);
             runner = runner.next;
