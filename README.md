@@ -1,2 +1,2 @@
 # AlgorithmFun
-Algorithms in Javascript for Fun
+Algorithms for Fun
