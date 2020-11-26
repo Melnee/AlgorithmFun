@@ -32,33 +32,108 @@ class DoublyLinkedList{
 
 
 
-//  ██╗   ██╗███████╗███████╗██████╗     ██╗███╗   ██╗██████╗ ██╗   ██╗████████╗
-//  ██║   ██║██╔════╝██╔════╝██╔══██╗    ██║████╗  ██║██╔══██╗██║   ██║╚══██╔══╝
-//  ██║   ██║███████╗█████╗  ██████╔╝    ██║██╔██╗ ██║██████╔╝██║   ██║   ██║   
-//  ██║   ██║╚════██║██╔══╝  ██╔══██╗    ██║██║╚██╗██║██╔═══╝ ██║   ██║   ██║   
-//  ╚██████╔╝███████║███████╗██║  ██║    ██║██║ ╚████║██║     ╚██████╔╝   ██║   
-//   ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝    ╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝    ╚═╝   
+//  ██╗███╗   ██╗██████╗ ██╗   ██╗████████╗    ████████╗ ██████╗     ██╗     ██╗███████╗████████╗
+//  ██║████╗  ██║██╔══██╗██║   ██║╚══██╔══╝    ╚══██╔══╝██╔═══██╗    ██║     ██║██╔════╝╚══██╔══╝
+//  ██║██╔██╗ ██║██████╔╝██║   ██║   ██║          ██║   ██║   ██║    ██║     ██║███████╗   ██║   
+//  ██║██║╚██╗██║██╔═══╝ ██║   ██║   ██║          ██║   ██║   ██║    ██║     ██║╚════██║   ██║   
+//  ██║██║ ╚████║██║     ╚██████╔╝   ██║          ██║   ╚██████╔╝    ███████╗██║███████║   ██║   
+//  ╚═╝╚═╝  ╚═══╝╚═╝      ╚═════╝    ╚═╝          ╚═╝    ╚═════╝     ╚══════╝╚═╝╚══════╝   ╚═╝   
+//put each character into a node in the doubly linked list
 
 var newList = new DoublyLinkedList();
 
-var testInput = "1+3+4+6+7";
+var testInput = "1/5/4+6*7";
 var symbols = ["+", "-", "/", "*"];
 
 for(var i = 0; i < testInput.length; i++){
-    //create a new node to store the character
+
     var newNode = new Node(testInput[i]);
-    //check if the list is empty
     if(newList.head == (null)){
         newList.head = newNode;
-    //if it's not empty, place the new node at the end, using a runner
     }else{
         var runner = newList.head;
         while(runner.next != null){
             runner = runner.next;
         }
         runner.next = newNode;
+        newNode.previous = runner;
+    }
+
+    if(symbols.includes(testInput[i+1])){
+        
     }
 }
+
+
+// ██████╗ ███████╗███╗   ███╗██████╗  █████╗ ███████╗
+// ██╔══██╗██╔════╝████╗ ████║██╔══██╗██╔══██╗██╔════╝
+// ██████╔╝█████╗  ██╔████╔██║██║  ██║███████║███████╗
+// ██╔═══╝ ██╔══╝  ██║╚██╔╝██║██║  ██║██╔══██║╚════██║
+// ██║     ███████╗██║ ╚═╝ ██║██████╔╝██║  ██║███████║
+// ╚═╝     ╚══════╝╚═╝     ╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝
+//find * and / symbols
+//math them together into one node
+//use if then statements to add together, with exceptions for negative numbers
+
+var runner = newList.head;
+while(runner != null){
+    if(runner.value == "*"){
+        var answerValue = runner.previous.value * runner.next.value;
+        var answerNode = new Node(answerValue);
+
+        //if answer node is not at the back, point answerNode forward,
+        if(runner.next.next != null){
+            answerNode.next = runner.next.next;
+        }
+        //if answer node is not at the front, point answerNode back,
+        if(runner.previous.previous != null){
+            answerNode.previous = runner.previous.previous;
+        }
+
+        //if answer node IS near the front, make it the new head.
+        if(runner.previous.previous == null){
+            newList.head = answerNode;
+        }
+
+        //point references only to this node, only if it's not near the front
+        if(runner.previous.previous != null){
+            runner.previous.previous.next = answerNode;
+        }
+        //point references only to this node, only if it's not near the back
+        if(runner.next.next != null){
+            runner.next.next.previous = answerNode;
+        }
+    }else if(runner.value == "/"){
+        var answerValue = runner.previous.value / runner.next.value;
+        var answerNode = new Node(answerValue);
+
+        //if answer node is not at the back, point answerNode forward,
+        if(runner.next.next != null){
+            answerNode.next = runner.next.next;
+        }
+        //if answer node is not at the front, point answerNode back,
+        if(runner.previous.previous != null){
+            answerNode.previous = runner.previous.previous;
+        }
+
+        //if answer node IS near the front, make it the new head.
+        if(runner.previous.previous == null){
+            newList.head = answerNode;
+        }
+
+        //point references only to this node, only if it's not near the front
+        if(runner.previous.previous != null){
+            runner.previous.previous.next = answerNode;
+        }
+        //point references only to this node, only if it's not near the back
+        if(runner.next.next != null){
+            runner.next.next.previous = answerNode;
+        }
+    }
+    runner = runner.next;
+}
+
+
 
 
 //to test that it worked, create a runner and print every value in the list
@@ -70,4 +145,34 @@ while(runner.next != null){
     runner = runner.next;
 }
 
+
 //it worked!!! :D
+
+
+//  █████╗ ██████╗ ██████╗ 
+// ██╔══██╗██╔══██╗██╔══██╗
+// ███████║██║  ██║██║  ██║
+// ██╔══██║██║  ██║██║  ██║
+// ██║  ██║██████╔╝██████╔╝
+// ╚═╝  ╚═╝╚═════╝ ╚═════╝ 
+//add it all together! :D
+
+var runner = newList.head;
+var sum = 0;
+while(runner != null){
+    if(symbols.includes(runner.value)){
+        //do nothing
+        runner = runner.next;
+    }else if(runner.previous != null){
+        if(runner.previous.value =="-"){
+            sum -= parseFloat(runner.value);
+            runner = runner.next;
+        }
+    }else{
+        sum += parseFloat(runner.value);
+        runner = runner.next;
+    }
+
+}
+                        
+console.log("answer is: " + sum);
