@@ -10,9 +10,6 @@ class DoublyLinkedList{
     constructor(head = null){
         this.head = head;
     }
-    setHead(newHead){
-        this.head = newHead;
-    }
 }
 
 // ███╗   ██╗ ██████╗ ██████╗ ███████╗     ██████╗██╗      █████╗ ███████╗███████╗
@@ -28,24 +25,6 @@ class DoublyLinkedList{
         this.previous = previous;
         this.next = next;
      }
-     setValue(value){
-         this.value = value;
-     }
-     getValue(value){
-         console.log(this.value);
-     }
-     setPrevious(node){
-         this.Previous;
-     }
-     getPrevious(node){
-         console.log(this.Previous);
-     }
-     setNext(node){
-         this.Next;
-     }
-     getNext(node){
-         console.log(this.Next);
-     }
  }
 
 
@@ -57,5 +36,7 @@ class DoublyLinkedList{
 //    ██║   ███████╗███████║   ██║   
 //    ╚═╝   ╚══════╝╚══════╝   ╚═╝   
                                   
-var newNode = new Node("hi");
-console.log(newNode.value);
+var newList = new DoublyLinkedList();
+var newNode = new Node("3");
+newList.head = newNode;
+console.log(newList.head.value);
