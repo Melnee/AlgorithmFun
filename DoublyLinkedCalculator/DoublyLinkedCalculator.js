@@ -5,6 +5,8 @@
 // ███████╗██║███████║   ██║       ╚██████╗███████╗██║  ██║███████║███████║
 // ╚══════╝╚═╝╚══════╝   ╚═╝        ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
 
+const { IgnorePlugin } = require("webpack");
+
                    
 class DoublyLinkedList{
     constructor(head = null){
@@ -42,11 +44,10 @@ class DoublyLinkedList{
 
 var newList = new DoublyLinkedList();
 
-var testInput = "-1/5/4-6*7";
+var testInput = "-1/5*4*7";
 var symbols = ["+", "-", "/", "*"];
 
 for(var i = 0; i < testInput.length; i++){
-
     var newNode = new Node(testInput[i]);
     if(newList.head == (null)){
         newList.head = newNode;
@@ -77,7 +78,11 @@ for(var i = 0; i < testInput.length; i++){
 
 var runner = newList.head;
 while(runner != null){
-    if(runner.value == "*"){
+    if(runner.value == "*"){   
+// ▄ ██╗▄
+//  ████╗
+// ▀╚██╔▀
+//   ╚═╝ 
         var answerValue = runner.previous.value * runner.next.value;
         var answerNode = new Node(answerValue);
 
@@ -103,6 +108,12 @@ while(runner != null){
         if(runner.next.next != null){
             runner.next.next.previous = answerNode;
         }
+//     ██╗
+//    ██╔╝
+//   ██╔╝ 
+//  ██╔╝  
+// ██╔╝   
+// ╚═╝    
     }else if(runner.value == "/"){
         var answerValue = runner.previous.value / runner.next.value;
         var answerNode = new Node(answerValue);
@@ -134,9 +145,15 @@ while(runner != null){
 }
 
 
+// ██╗     ██╗███████╗████████╗██╗   ██╗ █████╗ ██╗     ██████╗ ██████╗ ██╗███╗   ██╗████████╗
+// ██║     ██║██╔════╝╚══██╔══╝██║   ██║██╔══██╗██║     ██╔══██╗██╔══██╗██║████╗  ██║╚══██╔══╝
+// ██║     ██║███████╗   ██║   ██║   ██║███████║██║     ██████╔╝██████╔╝██║██╔██╗ ██║   ██║   
+// ██║     ██║╚════██║   ██║   ╚██╗ ██╔╝██╔══██║██║     ██╔═══╝ ██╔══██╗██║██║╚██╗██║   ██║   
+// ███████╗██║███████║   ██║    ╚████╔╝ ██║  ██║███████╗██║     ██║  ██║██║██║ ╚████║   ██║   
+// ╚══════╝╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝   
+                                                                                           
 
-
-//to test that it worked, create a runner and print every value in the list
+// to test that it worked, create a runner and print every value in the list
 
 var runner = newList.head;
 console.log(runner.value)
@@ -159,20 +176,30 @@ while(runner.next != null){
 
 var runner = newList.head;
 var sum = 0;
+var headIsNegative = false;
+
 while(runner != null){
     if(symbols.includes(runner.value)){
-        //do nothing
         runner = runner.next;
-    }else if(runner.previous != null){ //if it's not at the head
-        if(runner.previous.value =="-"){
-            sum -= parseFloat(runner.value);
-            runner = runner.next;
-        }
+        headIsNegative = true;
+    }
+    //conditional to check if head is negative
+    if(headIsNegative == false){
+        sum+=parseFloat(runner.value);
+        console.log("added " + runner.value);
+        console.log("SUM SO FAR " + sum);
+        runner = runner.next;
+    }else if(runner.previous.value == "-"){
+        sum-=parseFloat(runner.value);
+        console.log("subtracted " + runner.value);
+        console.log("SUM SO FAR " + sum);
+        runner = runner.next;
     }else{
         sum += parseFloat(runner.value);
+        console.log("added " + runner.value);
+        console.log("SUM SO FAR " + sum);
         runner = runner.next;
-    }
-
+    }    
 }
-                        
+
 console.log("answer is: " + sum);
