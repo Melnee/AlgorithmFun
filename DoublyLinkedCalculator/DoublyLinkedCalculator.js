@@ -5,7 +5,6 @@
 // ███████╗██║███████║   ██║       ╚██████╗███████╗██║  ██║███████║███████║
 // ╚══════╝╚═╝╚══════╝   ╚═╝        ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝
 
-const { IgnorePlugin } = require("webpack");
 
                    
 class DoublyLinkedList{
@@ -46,6 +45,8 @@ var newList = new DoublyLinkedList();
 
 var testInput = "-1/5*4*7";
 var symbols = ["+", "-", "/", "*"];
+var numCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 
 for(var i = 0; i < testInput.length; i++){
     var newNode = new Node(testInput[i]);
@@ -60,9 +61,6 @@ for(var i = 0; i < testInput.length; i++){
         newNode.previous = runner;
     }
 
-    if(symbols.includes(testInput[i+1])){
-        
-    }
 }
 
 
